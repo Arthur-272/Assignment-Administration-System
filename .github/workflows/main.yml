@@ -108,6 +108,8 @@ jobs:
         with:
           java-version: '11'
           cache: maven
+      - name: Change Permissions
+        run: chmod +x ./mvnw
       - name: Build with Maven
         run: ./mvnw -DskipTests=true -Pprod clean verify
 
