@@ -107,8 +107,10 @@ jobs:
         with:
           java-version: '11'
           cache: maven
+      - name: Change Permissions
+        run: chmod +x ./mvnw
       - name: Build with Maven
-        run: mvn clean install
+        run: ./mvnw -DskipTests=true -Pprod clean verify
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
