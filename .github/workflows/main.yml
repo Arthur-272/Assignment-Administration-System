@@ -60,7 +60,7 @@ jobs:
 
   #Build's job
   build:
-#     needs: tests
+    #     needs: tests
     name: Build and Push
     runs-on: ubuntu-latest
     steps:
@@ -73,17 +73,18 @@ jobs:
       - name: Change Permissions
         run: chmod +x ./mvnw
       - name: Build with Maven
-        run: ./mvnw package -DskipTests=true -Pprod jib:build
+        run: ./mvnw -DskipTests=true -Pprod clean verify
+          -
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: radheypatel272/test
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-#      - name: Build & push Docker image
-#        uses: mr-smithers-excellent/docker-build-push@v5
-#        with:
-#          image: radheypatel272/test
-#          tags: latest
-#          registry: docker.io
-#          dockerfile: Dockerfile
-#          username: ${{ secrets.DOCKER_USERNAME }}
-#          password: ${{ secrets.DOCKER_PASSWORD }}
   deploy:
     needs: build
     name: Pull and Deploy

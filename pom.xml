@@ -356,20 +356,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.google.cloud.tools</groupId>
-                    <artifactId>jib-maven-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <to>
-                            <image>docker.io/radheypatel272/test</image>
-                            <auth>
-                                <username>radheypatel272</username>
-                                <password>awesome@272</password>
-                            </auth>
-                        </to>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${maven-checkstyle-plugin.version}</version>
