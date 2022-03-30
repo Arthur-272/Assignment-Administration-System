@@ -8,6 +8,7 @@ import javax.validation.constraints.*;
 /**
  * A Course.
  */
+
 @Entity
 @Table(name = "course")
 public class Course implements Serializable {
