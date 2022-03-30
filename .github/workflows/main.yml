@@ -4,9 +4,9 @@
 name: My Profile
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
 #  tests:
 #    name: Unit tests
@@ -108,7 +108,7 @@ jobs:
           java-version: '11'
           cache: maven
       - name: Build with Maven
-        run: mvn clean install
+        run: ./mvnw -DskipTests=true -Pprod clean verify
 
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
