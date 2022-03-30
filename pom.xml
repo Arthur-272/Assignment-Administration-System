@@ -362,6 +362,10 @@
                     <configuration>
                         <to>
                             <image>docker.io/radheypatel272/test</image>
+                            <auth>
+                                <username>radheypatel272</username>
+                                <password>awesome@272</password>
+                            </auth>
                         </to>
                     </configuration>
                 </plugin>
