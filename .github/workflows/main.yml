@@ -4,9 +4,9 @@
 name: My Profile
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 jobs:
   tests:
     name: Unit tests
