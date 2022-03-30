@@ -97,7 +97,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #Build's job
   build:
-    needs: tests
+#     needs: tests
     name: Build and Push
     runs-on: ubuntu-latest
     steps:
