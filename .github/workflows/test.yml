@@ -8,93 +8,93 @@ on:
   pull_request:
     branches: [ master ]
 jobs:
-  tests:
-    name: Unit tests
-    #Run on Ubuntu using the latest version
-    runs-on: ubuntu-latest
-    #Job's steps
-    steps:
-      #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
-      - uses: actions/checkout@v1
-      #Set up JDK 1.8
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-      #Set up Maven cache
-      - name: Cache Maven packages
-        #This action allows caching dependencies and build outputs to improve workflow execution time.
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      #Run Tests
-      - name: Run Tests
-        run: mvn -B test
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
-        with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: target/surefire-reports/TEST-*.xml    # Path to test results
-          reporter: java-junit        # Format of test results
-      - name: Send mail
-        if: always()
-        uses: dawidd6/action-send-mail@v2
-        with:
-          # mail server settings
-          server_address: smtp.gmail.com
-          server_port: 587
-          # user credentials
-          username: ${{ secrets.EMAIL_USERNAME }}
-          password: ${{ secrets.EMAIL_PASSWORD }}
-          # email subject
-          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
-          # email body as text
-          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
-          # comma-separated string, send email to
-          to: radheypatel272@gmail.com
-          # from email name
-          from: Radhey Patel
-  #Sonar's Job
-  sonar:
-    #Depends on test's job
-    needs: tests
-    name: SonarCloud analysis
-    #Run on Ubuntu using the latest version
-    runs-on: ubuntu-latest
-    #Job's steps
-    steps:
-      #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
-      - uses: actions/checkout@v1
-      #Set up JDK 11
-      - name: Set up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: '11'
-      #Set up SonarCloud cache
-      - name: Cache SonarCloud packages
-        #This action allows caching dependencies and build outputs to improve workflow execution time.
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      #Set up Maven cache
-      - name: Cache Maven packages
-        #This action allows caching dependencies and build outputs to improve workflow execution time.
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      #Analyze project with SonarCloud
-      - name: Analyze with SonarCloud
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=learnwithparth_my_website_springboot
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#  tests:
+#    name: Unit tests
+#    #Run on Ubuntu using the latest version
+#    runs-on: ubuntu-latest
+#    #Job's steps
+#    steps:
+#      #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+#      - uses: actions/checkout@v1
+#      #Set up JDK 1.8
+#      - name: Set up JDK
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: '11'
+#      #Set up Maven cache
+#      - name: Cache Maven packages
+#        #This action allows caching dependencies and build outputs to improve workflow execution time.
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.m2
+#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: ${{ runner.os }}-m2
+#      #Run Tests
+#      - name: Run Tests
+#        run: mvn -B test
+#      - name: Test Report
+#        uses: dorny/test-reporter@v1
+#        if: success() || failure()    # run this step even if previous step failed
+#        with:
+#          name: JEST Tests            # Name of the check run which will be created
+#          path: target/surefire-reports/TEST-*.xml    # Path to test results
+#          reporter: java-junit        # Format of test results
+#      - name: Send mail
+#        if: always()
+#        uses: dawidd6/action-send-mail@v2
+#        with:
+#          # mail server settings
+#          server_address: smtp.gmail.com
+#          server_port: 587
+#          # user credentials
+#          username: ${{ secrets.EMAIL_USERNAME }}
+#          password: ${{ secrets.EMAIL_PASSWORD }}
+#          # email subject
+#          subject: ${{ github.job }} job of ${{ github.repository }} has ${{ job.status }}
+#          # email body as text
+#          body: ${{ github.job }} job in worflow ${{ github.workflow }} of ${{ github.repository }} has ${{ job.status }}
+#          # comma-separated string, send email to
+#          to: radheypatel272@gmail.com
+#          # from email name
+#          from: Radhey Patel
+#  #Sonar's Job
+#  sonar:
+#    #Depends on test's job
+#    needs: tests
+#    name: SonarCloud analysis
+#    #Run on Ubuntu using the latest version
+#    runs-on: ubuntu-latest
+#    #Job's steps
+#    steps:
+#      #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+#      - uses: actions/checkout@v1
+#      #Set up JDK 11
+#      - name: Set up JDK
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: '11'
+#      #Set up SonarCloud cache
+#      - name: Cache SonarCloud packages
+#        #This action allows caching dependencies and build outputs to improve workflow execution time.
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-sonar
+#          restore-keys: ${{ runner.os }}-sonar
+#      #Set up Maven cache
+#      - name: Cache Maven packages
+#        #This action allows caching dependencies and build outputs to improve workflow execution time.
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.m2
+#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: ${{ runner.os }}-m2
+#      #Analyze project with SonarCloud
+#      - name: Analyze with SonarCloud
+#        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=learnwithparth_my_website_springboot
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #Build's job
   build:
     needs: tests
