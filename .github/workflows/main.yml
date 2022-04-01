@@ -129,15 +129,15 @@ jobs:
       - name: Pull & Run from Hub
         uses: appleboy/ssh-action@master
         with:
-          host: ec2-18-205-153-156.compute-1.amazonaws.com
+          host: ec2-44-200-207-220.compute-1.amazonaws.com
           username: ec2-user
           key: ${{secrets.AWS_PRIVATE_KEY}}
           envs: GITHUB_SHA
           script: |
-            sudo docker pull radheypatel272/test
-            sudo docker stop test
-            sudo docker rm test
-            sudo docker run --detach --name test -p 443:443 radheypatel272/test
+            sudo docker pull radheypatel272/assignmentadministrationsystem
+            sudo docker stop assignmentadministrationsystem
+            sudo docker rm assignmentadministrationsystem
+            sudo docker run --detach --name test -p 443:443 radheypatel272/assignmentadministrationsystem
         #Deploy the artifact (JAR) into AWS Beanstalk
 #      - name: Deploy to EB
 #        uses: einaregilsson/beanstalk-deploy@v13
