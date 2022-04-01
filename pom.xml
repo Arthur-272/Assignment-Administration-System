@@ -569,7 +569,7 @@
                             </platforms>
                         </from>
                         <to>
-                            <image>radheypatel272/assignmentadministrationsystem:latest</image>
+                            <image>radheypatel272/test:latest</image>
                         </to>
                         <container>
                             <entrypoint>
