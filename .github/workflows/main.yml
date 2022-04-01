@@ -116,8 +116,8 @@ jobs:
       - name: Log into Docker
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: radheypatel272
+          password: awesome@272
       - name: Build with Maven and push to Docker
         run: ./mvnw package -DskipTests=true -Pprod jib:build
   deploy:
