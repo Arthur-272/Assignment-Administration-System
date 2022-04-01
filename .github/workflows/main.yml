@@ -122,6 +122,7 @@ jobs:
         run: ./mvnw package -DskipTests=true -Pprod jib:build
   deploy:
     needs: build
+    environment: secrets
     name: Pull and Deploy
     runs-on: ubuntu-latest
     steps:
